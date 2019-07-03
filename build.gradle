@@ -4,11 +4,14 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven{
+            url '/Users/skd/AndroidProject/GradlePluginsDemo/myplugin/repo/'
+        }
         
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
-//        classpath 'org.codehaus.groovy:groovy-android-gradle-plugin:2.0.1'
+        classpath "com.keding.plugin:myplugin:0.0.1"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -25,3 +28,25 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+class GreetingPluginExtension{
+    String message = "Hello from GreetingPlugin"
+}
+
+
+class GreetingPlugin implements Plugin<Project>{
+
+    @Override
+    void apply(Project project){
+
+        def extension  = project.extensions.create('greeting',GreetingPluginExtension)
+
+        project.task('hello'){
+            doLast {
+                println extension.message
+            }
+        }
+    }
+}
+
+apply plugin: GreetingPlugin //应用插件，这样插件才能在gradle构建过程中生效。

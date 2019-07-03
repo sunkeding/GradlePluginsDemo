@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin:  com.keding.plugins.MyFirstPlugin
+//第一个插件
+apply plugin:  com.keding.plugins.plugin.MyFirstPlugin
+//第二个插件，/Users/skd/AndroidProject/GradlePluginsDemo/myplugin/src/main/resources/META-INF/gradle-plugins/secondplugin.properties    名字是properties前面的前缀
+apply plugin:  "secondplugin"
 android {
     compileSdkVersion 28
     defaultConfig {
