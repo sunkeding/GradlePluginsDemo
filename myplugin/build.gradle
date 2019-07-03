@@ -5,7 +5,14 @@ repositories {
     mavenLocal()
     jcenter()
     maven{
-        url '/Users/skd/AndroidProject/GradlePluginsDemo/myplugin/repo/'
+        def suffix='/repo/'
+        def localMavenProjectUrl=getProjectDir()
+        StringBuilder stringBuilder=new StringBuilder()
+        def dependenciesUrl = stringBuilder.append(localMavenProjectUrl).append(suffix).toString()
+        //设置maven依赖的本地路径
+        url dependenciesUrl
+        println "myplugin module path为:"+localMavenProjectUrl
+        println "myplugin module中上传的maven本地完整path为:"+dependenciesUrl
     }
 }
 

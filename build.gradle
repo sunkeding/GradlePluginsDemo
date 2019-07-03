@@ -5,7 +5,12 @@ buildscript {
         google()
         jcenter()
         maven{
-            url '/Users/skd/AndroidProject/GradlePluginsDemo/myplugin/repo/'
+            def suffix='/repo/'
+            def localMavenProjectUrl=project('myplugin').getProjectDir()
+            StringBuilder stringBuilder=new StringBuilder()
+            def dependenciesUrl = stringBuilder.append(localMavenProjectUrl).append(suffix).toString()
+            url dependenciesUrl
+            println('根目录的本地maven依赖路径：'+dependenciesUrl)
         }
         
     }

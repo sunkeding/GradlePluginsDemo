@@ -15,7 +15,7 @@ class MyFirstPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        print("自定义插件MyFirstPlugin执行了！！！" + " project name:" + project.getName()+'\n')
+        println("自定义插件MyFirstPlugin执行了！！！" + " project name:" + project.getName())
 
         def extension  = project.extensions.create('greeting',GreetingPluginExtension)
 
