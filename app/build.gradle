@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 //第一个插件
-apply plugin:  com.keding.plugins.plugin.MyFirstPlugin
+apply plugin: com.keding.plugins.plugin.MyFirstPlugin
 //第二个插件，/Users/skd/AndroidProject/GradlePluginsDemo/myplugin/src/main/resources/META-INF/gradle-plugins/secondplugin.properties    名字是properties前面的前缀
-apply plugin:  "secondplugin"
+apply plugin: "secondplugin"
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -29,3 +29,50 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+
+this.gradle.addBuildListener(new BuildListener() {
+    @Override
+    void buildStarted(Gradle gradle) {
+        println("buildStarted")
+
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+        println("settingsEvaluated")
+
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+        println("projectsLoaded")
+
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+        println("projectsEvaluated")
+
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println("buildFinished")
+        println("==============================================")
+        println(VERSION_NAME)
+        println(VERSION_CODE)
+//        def command='git log'
+        def tagName = "release_tag" + VERSION_NAME
+        def tagCommand = 'git tag -a ' + tagName + " -m 提交版本号:" + VERSION_NAME
+        def pushTagCommand = 'git push origin master --tags'
+
+        println("tag命令：" + tagCommand)
+        println("tag push命令：" + pushTagCommand)
+        tagCommand.execute().text
+        pushTagCommand.execute().text
+
+
+    }
+})
+
